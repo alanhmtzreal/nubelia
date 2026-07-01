@@ -1,101 +1,108 @@
 import Image from "next/image";
+import Link from "next/link";
+import ProductCard from "@/components/ProductCard";
+import { getFeaturedProducts } from "@/data/products";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const featured = getFeaturedProducts();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  return (
+    <div>
+      {/* Hero */}
+      <section className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden bg-cream px-6 text-center">
+        <Image
+          src="/images/marca/isotipo.png"
+          alt=""
+          width={80}
+          height={80}
+          className="mb-6 h-16 w-auto opacity-80"
+        />
+        <p className="mb-3 font-body text-xs uppercase tracking-[0.3em] text-dark/60">
+          Marketing olfativo
+        </p>
+        <h1 className="max-w-3xl font-display text-4xl leading-tight text-dark sm:text-6xl">
+          El aroma que hace inolvidable tu espacio
+        </h1>
+        <p className="mt-6 max-w-xl font-body text-base text-dark/70">
+          Turbos ambientadores, room spray y difusores diseñados para
+          transformar la manera en que tu hogar o tu negocio se sienten.
+        </p>
+        <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+          <Link
+            href="/tienda"
+            className="bg-dark px-8 py-3 font-body text-sm uppercase tracking-widest text-cream transition hover:opacity-90"
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Ir a la tienda
+          </Link>
+          <Link
+            href="/distribucion"
+            className="border border-dark px-8 py-3 font-body text-sm uppercase tracking-widest text-dark transition hover:bg-dark hover:text-cream"
           >
-            Read our docs
-          </a>
+            Soy un negocio
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </section>
+
+      {/* Featured products */}
+      <section className="mx-auto max-w-7xl px-6 py-20">
+        <div className="mb-10 flex flex-col items-center text-center">
+          <p className="font-body text-xs uppercase tracking-[0.3em] text-dark/50">
+            Nuestro catálogo
+          </p>
+          <h2 className="mt-2 font-display text-3xl text-dark">
+            Productos destacados
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {featured.map((product) => (
+            <ProductCard key={product.slug} product={product} />
+          ))}
+        </div>
+      </section>
+
+      {/* Brand strip */}
+      <section className="bg-dark px-6 py-20 text-cream">
+        <div className="mx-auto grid max-w-6xl gap-12 sm:grid-cols-3">
+          <div className="text-center">
+            <h3 className="font-display text-xl">Alta concentración</h3>
+            <p className="mt-3 font-body text-sm text-cream/70">
+              Fórmulas con mayor duración y cobertura que los ambientadores
+              tradicionales.
+            </p>
+          </div>
+          <div className="text-center">
+            <h3 className="font-display text-xl">Para hogar y negocio</h3>
+            <p className="mt-3 font-body text-sm text-cream/70">
+              Soluciones de aromatización a la medida de espacios chicos,
+              grandes y comerciales.
+            </p>
+          </div>
+          <div className="text-center">
+            <h3 className="font-display text-xl">Amplio catálogo de aromas</h3>
+            <p className="mt-3 font-body text-sm text-cream/70">
+              Encuentra la fragancia que mejor represente tu espacio o tu
+              marca.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Distribución teaser */}
+      <section className="mx-auto flex max-w-5xl flex-col items-center gap-6 px-6 py-20 text-center">
+        <h2 className="font-display text-3xl text-dark">
+          ¿Tienes un negocio?
+        </h2>
+        <p className="max-w-xl font-body text-dark/70">
+          Ayudamos a hoteles, spas, oficinas y tiendas a mejorar su identidad
+          olfativa, con precios preferenciales por volumen.
+        </p>
+        <Link
+          href="/distribucion"
+          className="border border-dark px-8 py-3 font-body text-sm uppercase tracking-widest text-dark transition hover:bg-dark hover:text-cream"
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          Conoce más
+        </Link>
+      </section>
     </div>
   );
 }

@@ -1,0 +1,150 @@
+export type ProductCategory =
+  | "turbo"
+  | "room-spray"
+  | "difusor"
+  | "difusor-chico"
+  | "linea-economica";
+
+export interface Product {
+  slug: string;
+  name: string;
+  category: ProductCategory;
+  categoryLabel: string;
+  price: number | null; // null => "Consultar precio"
+  image: string; // ruta dentro de /public
+  shortDescription: string;
+  description: string[];
+  specs?: string[];
+  aromas?: string[];
+  featured?: boolean;
+}
+
+// Lista de aromas de ejemplo — reemplazar por el catálogo real cuando lo tengas listo.
+const AROMAS_PLACEHOLDER = [
+  "Sound of Armony",
+  "Vainilla",
+  "Cítrico",
+  "Lavanda",
+  "Bambú",
+  "Sándalo",
+];
+
+export const products: Product[] = [
+  {
+    slug: "turbo",
+    name: "Turbo Ambientador",
+    category: "turbo",
+    categoryLabel: "Turbo",
+    price: 700,
+    image: "/images/productos/turbo.jpg",
+    shortDescription:
+      "Alta concentración de esencia, una sola pulsación aromatiza hasta 150m³ por 24 horas.",
+    description: [
+      "Nuestro Turbo Ambientador se destaca por su alta concentración de esencia, superando ampliamente a los productos similares disponibles en el mercado. Con menos cantidad conseguimos una cobertura más amplia, garantizando además que la fragancia persista por más tiempo.",
+      "Con una única pulsación, el Turbo es capaz de ambientar hasta 150m³ durante 24 horas completas, asegurando una cobertura excepcional y una duración inigualable.",
+      "Innovador y potente, el Turbo Ambientador es ideal para quienes buscan eficiencia sin comprometer la calidad del aire.",
+    ],
+    specs: [
+      "Una sola pulsación",
+      "24 horas de duración",
+      "Cobertura de hasta 150m³",
+    ],
+    aromas: AROMAS_PLACEHOLDER,
+    featured: true,
+  },
+  {
+    slug: "room-spray",
+    name: "Room Spray",
+    category: "room-spray",
+    categoryLabel: "Room Spray",
+    price: 460,
+    image: "/images/productos/room-spray.jpg",
+    shortDescription:
+      "Botella de 250ml pensada para textiles: no mancha, no decolora y su aroma dura hasta 10 horas.",
+    description: [
+      "Nuestro Room Spray viene en presentación de 250ml, formulado especialmente para uso en textiles.",
+      "No mancha ni decolora la tela, y su fragancia permanece en el textil hasta por 10 horas aproximadamente.",
+      "Ideal para sábanas, cortinas, sillones, ropa de closet y cualquier tela que quieras perfumar de forma segura.",
+    ],
+    specs: [
+      "Presentación de 250ml",
+      "No mancha ni decolora textiles",
+      "Duración aproximada de 10 horas en tela",
+    ],
+    aromas: AROMAS_PLACEHOLDER,
+    featured: true,
+  },
+  {
+    slug: "difusor",
+    name: "Difusor",
+    category: "difusor",
+    categoryLabel: "Difusor",
+    price: 3800,
+    image: "/images/productos/difusor-grande.jpg",
+    shortDescription:
+      "Difusor de aromatización de mayor capacidad, para espacios amplios con cobertura constante.",
+    description: [
+      "Difusor de aromatización de tamaño grande, diseñado para cubrir espacios amplios con una fragancia constante y homogénea.",
+      "Funciona con esencia de 120ml y permite personalizar intensidad y horarios de difusión.",
+      "Ideal para recepciones, oficinas, negocios y espacios residenciales de mayor tamaño.",
+    ],
+    specs: ["Esencia de 120ml", "Cobertura para espacios amplios", "Disponible en distintos colores"],
+    featured: true,
+  },
+  {
+    slug: "difusor-chico",
+    name: "Difusor Chico",
+    category: "difusor-chico",
+    categoryLabel: "Difusor Chico",
+    price: 2200,
+    image: "/images/productos/difusor-chico.jpg",
+    shortDescription:
+      "Versión compacta de nuestro difusor, perfecta para espacios pequeños o medianos.",
+    description: [
+      "Difusor de aromatización en formato compacto, ideal para espacios pequeños y medianos como habitaciones, oficinas privadas o baños.",
+      "Mantiene la misma tecnología de difusión que nuestro modelo grande, en un diseño más discreto.",
+    ],
+    specs: ["Esencia de 120ml", "Formato compacto", "Disponible en distintos colores"],
+  },
+  {
+    slug: "wiese-lata-spray",
+    name: "Wiese Lata Spray 180g",
+    category: "linea-economica",
+    categoryLabel: "Línea económica",
+    price: null,
+    image: "/images/productos/wiese-lata-spray.jpg",
+    shortDescription: "Lata de aroma en spray de 180g, línea económica Wiese.",
+    description: [
+      "Lata de aroma en spray de 180g de la marca Wiese, una opción económica para aromatizar espacios.",
+    ],
+  },
+  {
+    slug: "wiese-difusor-spray",
+    name: "Wiese Difusor de Spray",
+    category: "linea-economica",
+    categoryLabel: "Línea económica",
+    price: null,
+    image: "/images/productos/wiese-difusor-spray.jpg",
+    shortDescription: "Difusor de spray automático, línea económica Wiese.",
+    description: [
+      "Difusor de spray automático de la marca Wiese, ideal como opción económica de aromatización.",
+    ],
+  },
+  {
+    slug: "wiese-botella-spray",
+    name: "Wiese Botella Spray 323g",
+    category: "linea-economica",
+    categoryLabel: "Línea económica",
+    price: null,
+    image: "/images/productos/wiese-botella-spray.jpg",
+    shortDescription: "Botella de spray de mayor tamaño, 323g, línea económica Wiese.",
+    description: [
+      "Botella de spray de 323g de la marca Wiese, presentación más grande dentro de nuestra línea económica.",
+    ],
+  },
+];
+
+export const getProductBySlug = (slug: string) =>
+  products.find((p) => p.slug === slug);
+
+export const getFeaturedProducts = () => products.filter((p) => p.featured);
