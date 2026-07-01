@@ -18,12 +18,12 @@ export default function ProductPage({
   return (
     <div className="mx-auto max-w-6xl px-6 py-16">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-        <div className="relative aspect-square w-full overflow-hidden bg-white/40">
+        <div className="relative aspect-square w-full overflow-hidden bg-cream">
           <Image
             src={product.image}
             alt={product.name}
             fill
-            className="object-contain p-10"
+            className="object-contain p-10 mix-blend-multiply"
             priority
           />
         </div>

@@ -55,12 +55,12 @@ export default function CartDrawer() {
             <ul className="flex flex-col gap-5">
               {items.map((item) => (
                 <li key={`${item.slug}-${item.aroma}`} className="flex gap-4">
-                  <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-sm bg-white/50">
+                  <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-sm bg-cream">
                     <Image
                       src={item.image}
                       alt={item.name}
                       fill
-                      className="object-contain p-2"
+                      className="object-contain p-2 mix-blend-multiply"
                     />
                   </div>
                   <div className="flex flex-1 flex-col">

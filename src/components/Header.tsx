@@ -28,9 +28,9 @@ export default function Header() {
           <Image
             src="/images/marca/logo.png"
             alt="Nubelia — Marketing Olfativo"
-            width={140}
-            height={70}
-            className="h-12 w-auto object-contain"
+            width={300}
+            height={232}
+            className="h-28 w-auto object-contain"
             priority
           />
         </Link>

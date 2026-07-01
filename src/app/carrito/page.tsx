@@ -35,12 +35,12 @@ export default function CarritoPage() {
             key={`${item.slug}-${item.aroma}`}
             className="flex items-center gap-6 border-b border-dark/10 pb-6"
           >
-            <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden bg-white/50">
+            <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden bg-cream">
               <Image
                 src={item.image}
                 alt={item.name}
                 fill
-                className="object-contain p-3"
+                className="object-contain p-3 mix-blend-multiply"
               />
             </div>
             <div className="flex-1">

@@ -13,9 +13,9 @@ export default function Home() {
         <Image
           src="/images/marca/isotipo.png"
           alt=""
-          width={80}
-          height={80}
-          className="mb-6 h-16 w-auto opacity-80"
+          width={320}
+          height={248}
+          className="mb-6 h-48 w-auto object-contain mix-blend-multiply opacity-90"
         />
         <p className="mb-3 font-body text-xs uppercase tracking-[0.3em] text-dark/60">
           Marketing olfativo
