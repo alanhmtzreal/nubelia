@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import ProductCard from "@/components/ProductCard";
-import { products, ProductCategory } from "@/data/products";
+import { Product, ProductCategory } from "@/types/product";
 
 const CATEGORIES: { value: ProductCategory | "todos"; label: string }[] = [
   { value: "todos", label: "Todos" },
@@ -13,7 +13,7 @@ const CATEGORIES: { value: ProductCategory | "todos"; label: string }[] = [
   { value: "linea-economica", label: "Línea económica" },
 ];
 
-export default function TiendaGrid() {
+export default function TiendaGrid({ products }: { products: Product[] }) {
   const [category, setCategory] = useState<ProductCategory | "todos">(
     "todos"
   );
@@ -23,7 +23,7 @@ export default function TiendaGrid() {
       category === "todos"
         ? products
         : products.filter((p) => p.category === category),
-    [category]
+    [category, products]
   );
 
   return (

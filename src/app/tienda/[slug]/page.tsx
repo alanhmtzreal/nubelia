@@ -1,18 +1,16 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { getProductBySlug, products } from "@/data/products";
+import { getProductBySlug } from "@/lib/products-store";
 import ProductPurchaseBox from "./ProductPurchaseBox";
 
-export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
-}
+export const dynamic = "force-dynamic";
 
-export default function ProductPage({
+export default async function ProductPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const product = getProductBySlug(params.slug);
+  const product = await getProductBySlug(params.slug);
   if (!product) notFound();
 
   return (

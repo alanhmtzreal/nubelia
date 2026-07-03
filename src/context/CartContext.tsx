@@ -8,7 +8,7 @@ import {
   useState,
   ReactNode,
 } from "react";
-import { Product } from "@/data/products";
+import { Product } from "@/types/product";
 
 export interface CartItem {
   slug: string;

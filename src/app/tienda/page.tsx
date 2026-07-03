@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 import TiendaGrid from "./TiendaGrid";
+import { readProducts } from "@/lib/products-store";
 
 export const metadata: Metadata = {
   title: "Tienda | Nubelia",
 };
 
-export default function TiendaPage() {
+export const dynamic = "force-dynamic";
+
+export default async function TiendaPage() {
+  const products = await readProducts();
+
   return (
     <div className="mx-auto max-w-7xl px-6 py-16">
       <div className="mb-12 text-center">
@@ -18,7 +23,7 @@ export default function TiendaPage() {
           tu hogar o negocio.
         </p>
       </div>
-      <TiendaGrid />
+      <TiendaGrid products={products} />
     </div>
   );
 }
