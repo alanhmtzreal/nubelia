@@ -18,9 +18,39 @@ export default function CheckoutPage() {
     (typeof PAYMENT_METHODS)[number]["id"]
   >("tarjeta");
   const [confirmed, setConfirmed] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
+    setSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    const customer = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      address: formData.get("address"),
+      city: formData.get("city"),
+      postalCode: formData.get("postalCode"),
+    };
+
+    const res = await fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ customer, items, subtotal, paymentMethod }),
+    });
+
+    setSubmitting(false);
+
+    if (!res.ok) {
+      setError(
+        "No pudimos enviar tu pedido. Por favor intenta de nuevo o contáctanos por WhatsApp."
+      );
+      return;
+    }
+
     setConfirmed(true);
     clearCart();
   };
@@ -77,33 +107,39 @@ export default function CheckoutPage() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <input
                 required
+                name="name"
                 placeholder="Nombre completo"
                 className="border border-dark/20 bg-white/50 px-4 py-3 font-body text-sm text-dark sm:col-span-2"
               />
               <input
                 required
+                name="email"
                 type="email"
                 placeholder="Correo electrónico"
                 className="border border-dark/20 bg-white/50 px-4 py-3 font-body text-sm text-dark"
               />
               <input
                 required
+                name="phone"
                 type="tel"
                 placeholder="Teléfono"
                 className="border border-dark/20 bg-white/50 px-4 py-3 font-body text-sm text-dark"
               />
               <input
                 required
+                name="address"
                 placeholder="Dirección"
                 className="border border-dark/20 bg-white/50 px-4 py-3 font-body text-sm text-dark sm:col-span-2"
               />
               <input
                 required
+                name="city"
                 placeholder="Ciudad"
                 className="border border-dark/20 bg-white/50 px-4 py-3 font-body text-sm text-dark"
               />
               <input
                 required
+                name="postalCode"
                 placeholder="Código postal"
                 className="border border-dark/20 bg-white/50 px-4 py-3 font-body text-sm text-dark"
               />
@@ -156,11 +192,15 @@ export default function CheckoutPage() {
             <span>Total</span>
             <span>{formatPrice(subtotal)}</span>
           </div>
+          {error && (
+            <p className="mt-4 font-body text-sm text-red-700">{error}</p>
+          )}
           <button
             type="submit"
-            className="mt-6 w-full bg-dark py-3 font-body text-sm uppercase tracking-widest text-cream transition hover:opacity-90"
+            disabled={submitting}
+            className="mt-6 w-full bg-dark py-3 font-body text-sm uppercase tracking-widest text-cream transition hover:opacity-90 disabled:opacity-50"
           >
-            Confirmar pedido
+            {submitting ? "Enviando…" : "Confirmar pedido"}
           </button>
         </div>
       </form>
