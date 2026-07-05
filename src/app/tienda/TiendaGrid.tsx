@@ -10,6 +10,7 @@ const CATEGORIES: { value: ProductCategory | "todos"; label: string }[] = [
   { value: "room-spray", label: "Room Spray" },
   { value: "difusor", label: "Difusores" },
   { value: "difusor-chico", label: "Difusores chico" },
+  { value: "esencia", label: "Esencia para Difusor" },
   { value: "linea-economica", label: "Línea económica" },
 ];
 

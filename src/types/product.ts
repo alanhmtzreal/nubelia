@@ -3,6 +3,7 @@ export type ProductCategory =
   | "room-spray"
   | "difusor"
   | "difusor-chico"
+  | "esencia"
   | "linea-economica";
 
 export interface Product {
@@ -24,5 +25,6 @@ export const CATEGORY_OPTIONS: { value: ProductCategory; label: string }[] = [
   { value: "room-spray", label: "Room Spray" },
   { value: "difusor", label: "Difusor" },
   { value: "difusor-chico", label: "Difusor Chico" },
+  { value: "esencia", label: "Esencia para Difusor" },
   { value: "linea-economica", label: "Línea económica" },
 ];
