@@ -118,7 +118,7 @@
     "name": "Wiese Lata Spray 180g",
     "category": "linea-economica",
     "categoryLabel": "Línea económica",
-    "price": null,
+    "price": 120,
     "image": "/images/productos/wiese-lata-spray.jpg",
     "shortDescription": "Lata de aroma en spray de 180g, línea económica Wiese.",
     "description": [
@@ -130,7 +130,7 @@
     "name": "Wiese Difusor de Spray",
     "category": "linea-economica",
     "categoryLabel": "Línea económica",
-    "price": null,
+    "price": 600,
     "image": "/images/productos/wiese-difusor-spray.jpg",
     "shortDescription": "Difusor de spray automático, línea económica Wiese.",
     "description": [
@@ -142,7 +142,7 @@
     "name": "Wiese Botella Spray 323g",
     "category": "linea-economica",
     "categoryLabel": "Línea económica",
-    "price": null,
+    "price": 90,
     "image": "/images/productos/wiese-botella-spray.jpg",
     "shortDescription": "Botella de spray de mayor tamaño, 323g, línea económica Wiese.",
     "description": [
