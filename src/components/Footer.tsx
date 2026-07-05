@@ -48,9 +48,26 @@ export default function Footer() {
             Síguenos
           </h4>
           <ul className="space-y-2 font-body text-sm text-cream/70">
-            <li><a href="#" className="hover:text-cream">Instagram</a></li>
-            <li><a href="#" className="hover:text-cream">Facebook</a></li>
-            <li><a href="#" className="hover:text-cream">TikTok</a></li>
+            <li>
+              <a
+                href="https://www.instagram.com/nubelia.mx/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-cream"
+              >
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.facebook.com/profile.php?id=61581416241543"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-cream"
+              >
+                Facebook
+              </a>
+            </li>
           </ul>
         </div>
       </div>
