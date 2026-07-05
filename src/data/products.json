@@ -139,14 +139,27 @@
   },
   {
     "slug": "wiese-botella-spray",
-    "name": "Wiese Botella Spray 323g",
+    "name": "Wiese Botella Spray 365g",
     "category": "linea-economica",
     "categoryLabel": "Línea económica",
     "price": 90,
     "image": "/images/productos/wiese-botella-spray.jpg",
-    "shortDescription": "Botella de spray de mayor tamaño, 323g, línea económica Wiese.",
+    "shortDescription": "Botella de spray de mayor tamaño, 365g, línea económica Wiese.",
     "description": [
-      "Botella de spray de 323g de la marca Wiese, presentación más grande dentro de nuestra línea económica."
+      "Botella de spray de 365g de la marca Wiese, presentación más grande dentro de nuestra línea económica."
+    ],
+    "aromas": [
+      "Amour",
+      "Aqua",
+      "Brisa De Los Alpes",
+      "Cítrico",
+      "Frutas Rojas",
+      "Hawaian Ginger",
+      "Lavanda",
+      "Manzana Canela",
+      "Paraíso Floral",
+      "Sensación Campestre",
+      "Tahití"
     ]
   }
 ]
