@@ -37,9 +37,9 @@ export default function Footer() {
             Contacto
           </h4>
           <ul className="space-y-2 font-body text-sm text-cream/70">
-            <li>WhatsApp: 55 0000 0000</li>
+            <li>WhatsApp: 833 205 1214</li>
             <li>hola@nubelia.mx</li>
-            <li>Ciudad de México, México</li>
+            <li>Tampico, Tamaulipas</li>
           </ul>
         </div>
 

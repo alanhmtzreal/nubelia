@@ -20,8 +20,8 @@ export default function ContactoPage() {
       <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-2">
         <div className="flex flex-col gap-4 font-body text-dark/70">
           <p>
-            <span className="font-semibold text-dark">WhatsApp:</span> 55 0000
-            0000
+            <span className="font-semibold text-dark">WhatsApp:</span> 833 205
+            1214
           </p>
           <p>
             <span className="font-semibold text-dark">Correo:</span>{" "}
@@ -29,7 +29,7 @@ export default function ContactoPage() {
           </p>
           <p>
             <span className="font-semibold text-dark">Ubicación:</span>{" "}
-            Ciudad de México, México
+            Tampico, Tamaulipas
           </p>
         </div>
 
