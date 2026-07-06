@@ -24,6 +24,10 @@ export default function ContactoPage() {
             1214
           </p>
           <p>
+            <span className="font-semibold text-dark">Correo:</span>{" "}
+            mxnubelia@gmail.com
+          </p>
+          <p>
             <span className="font-semibold text-dark">Ubicación:</span>{" "}
             Tampico, Tamaulipas
           </p>
