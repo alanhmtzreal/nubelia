@@ -11,5 +11,5 @@ export function getSiteUrl() {
 }
 
 export function isSandboxMode() {
-  return process.env.MERCADOPAGO_MODE !== "production";
+  return process.env.MERCADOPAGO_MODE?.trim().toLowerCase() !== "production";
 }
