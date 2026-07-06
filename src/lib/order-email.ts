@@ -1,15 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { formatPrice } from "@/lib/format";
 
-interface OrderItem {
+export interface OrderItem {
   name: string;
   price: number | null;
   quantity: number;
   aroma?: string;
 }
 
-interface OrderPayload {
+export interface OrderData {
   customer: {
     name: string;
     email: string;
@@ -22,28 +21,17 @@ interface OrderPayload {
   subtotal: number;
   shipping: number;
   total: number;
-  paymentMethod: string;
 }
 
-const PAYMENT_LABELS: Record<string, string> = {
-  tarjeta: "Tarjeta de débito/crédito",
-  paypal: "PayPal",
-  mercadopago: "Mercado Pago",
-  ecartpay: "Ecart Pay",
-};
-
-export async function POST(request: NextRequest) {
+export async function sendOrderNotificationEmail(
+  order: OrderData
+): Promise<{ ok: boolean; error?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   const notifyEmail = process.env.ORDER_NOTIFICATION_EMAIL;
 
   if (!apiKey || !notifyEmail) {
-    return NextResponse.json(
-      { error: "El envío de correos no está configurado todavía." },
-      { status: 503 }
-    );
+    return { ok: false, error: "El envío de correos no está configurado todavía." };
   }
-
-  const order: OrderPayload = await request.json();
 
   const itemsHtml = order.items
     .map(
@@ -55,7 +43,7 @@ export async function POST(request: NextRequest) {
     .join("");
 
   const html = `
-    <h2>Nuevo pedido en Nubelia</h2>
+    <h2>Nuevo pedido pagado en Nubelia</h2>
     <h3>Cliente</h3>
     <p>
       ${order.customer.name}<br/>
@@ -74,9 +62,7 @@ export async function POST(request: NextRequest) {
       Envío: ${formatPrice(order.shipping)}
     </p>
     <h3>Total: ${formatPrice(order.total)}</h3>
-    <p>Método de pago elegido: ${
-      PAYMENT_LABELS[order.paymentMethod] ?? order.paymentMethod
-    }</p>
+    <p>Pagado con Mercado Pago.</p>
   `;
 
   const resend = new Resend(apiKey);
@@ -84,16 +70,13 @@ export async function POST(request: NextRequest) {
     from: "Nubelia <notificaciones@nubelia.app>",
     to: notifyEmail,
     replyTo: order.customer.email,
-    subject: `Nuevo pedido de ${order.customer.name}`,
+    subject: `Nuevo pedido pagado de ${order.customer.name}`,
     html,
   });
 
   if (error) {
-    return NextResponse.json(
-      { error: "No se pudo enviar el correo del pedido." },
-      { status: 502 }
-    );
+    return { ok: false, error: "No se pudo enviar el correo del pedido." };
   }
 
-  return NextResponse.json({ ok: true });
+  return { ok: true };
 }

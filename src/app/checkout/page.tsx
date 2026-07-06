@@ -9,9 +9,7 @@ import { FLAT_SHIPPING_RATE } from "@/lib/shipping";
 const ACCEPTED_METHODS = ["Visa", "Mastercard", "OXXO", "SPEI"];
 
 export default function CheckoutPage() {
-  const { items, subtotal, clearCart } = useCart();
-  const paymentMethod = "mercadopago";
-  const [confirmed, setConfirmed] = useState(false);
+  const { items, subtotal } = useCart();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -30,51 +28,30 @@ export default function CheckoutPage() {
       postalCode: formData.get("postalCode"),
     };
 
-    const res = await fetch("/api/orders", {
+    const res = await fetch("/api/checkout/create-preference", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         customer,
         items,
         subtotal,
-        shipping: FLAT_SHIPPING_RATE,
         total: subtotal + FLAT_SHIPPING_RATE,
-        paymentMethod,
       }),
     });
 
-    setSubmitting(false);
+    const data = await res.json();
 
-    if (!res.ok) {
+    if (!res.ok || !data.redirectUrl) {
+      setSubmitting(false);
       setError(
-        "No pudimos enviar tu pedido. Por favor intenta de nuevo o contáctanos por WhatsApp."
+        data.error ??
+          "No pudimos iniciar el pago. Por favor intenta de nuevo o contáctanos por WhatsApp."
       );
       return;
     }
 
-    setConfirmed(true);
-    clearCart();
+    window.location.href = data.redirectUrl;
   };
-
-  if (confirmed) {
-    return (
-      <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 px-6 py-24 text-center">
-        <h1 className="font-display text-3xl text-dark">
-          ¡Gracias por tu pedido!
-        </h1>
-        <p className="font-body text-dark/70">
-          Hemos recibido los datos de tu pedido. Nos pondremos en contacto
-          contigo para confirmar el pago y coordinar el envío.
-        </p>
-        <Link
-          href="/tienda"
-          className="bg-dark px-8 py-3 font-body text-sm uppercase tracking-widest text-cream transition hover:opacity-90"
-        >
-          Seguir comprando
-        </Link>
-      </div>
-    );
-  }
 
   if (items.length === 0) {
     return (
@@ -214,7 +191,7 @@ export default function CheckoutPage() {
             disabled={submitting}
             className="mt-6 w-full bg-dark py-3 font-body text-sm uppercase tracking-widest text-cream transition hover:opacity-90 disabled:opacity-50"
           >
-            {submitting ? "Enviando…" : "Confirmar pedido"}
+            {submitting ? "Redirigiendo a Mercado Pago…" : "Pagar con Mercado Pago"}
           </button>
         </div>
       </form>
