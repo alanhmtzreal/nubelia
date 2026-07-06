@@ -9,17 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.110.0",
     "mercadopago": "^3.2.0",
     "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18",
     "resend": "^6.17.1",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "ws": "^8.21.0"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/ws": "^8.18.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.35",
     "postcss": "^8",
