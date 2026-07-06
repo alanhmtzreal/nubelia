@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Product, ProductCategory, CATEGORY_OPTIONS } from "@/types/product";
 
@@ -35,10 +36,44 @@ export default function ProductForm({
   const [featured, setFeatured] = useState(initialProduct?.featured ?? false);
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadError("");
+    setUploading(true);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch("/api/admin/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json().catch(() => ({}));
+    setUploading(false);
+
+    if (!res.ok) {
+      setUploadError(data.error ?? "No se pudo subir la imagen.");
+      return;
+    }
+
+    setImage(data.url);
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (!image) {
+      setError("Sube una foto del producto antes de guardar.");
+      return;
+    }
+
     setSaving(true);
 
     const payload = {
@@ -157,15 +192,30 @@ export default function ProductForm({
 
       <div>
         <label className="mb-1 block font-body text-xs uppercase tracking-widest text-dark/60">
-          Ruta de la imagen (colócala en public/images/productos/ con este mismo nombre)
+          Foto del producto
         </label>
+        {image && (
+          <div className="relative mb-3 h-40 w-40 overflow-hidden border border-dark/10 bg-white/40">
+            <Image src={image} alt="Vista previa" fill className="object-contain p-2" />
+          </div>
+        )}
         <input
-          required
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-          placeholder="/images/productos/nombre-archivo.jpg"
-          className="w-full border border-dark/20 bg-white/50 px-4 py-3 font-body text-sm text-dark"
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="w-full border border-dark/20 bg-white/50 px-4 py-3 font-body text-sm text-dark file:mr-4 file:border-0 file:bg-dark file:px-4 file:py-2 file:font-body file:text-sm file:uppercase file:text-cream"
         />
+        {uploading && (
+          <p className="mt-2 font-body text-xs text-dark/50">Subiendo imagen…</p>
+        )}
+        {uploadError && (
+          <p className="mt-2 font-body text-xs text-red-700">{uploadError}</p>
+        )}
+        {!image && !uploading && (
+          <p className="mt-2 font-body text-xs text-dark/40">
+            Todavía no has subido ninguna foto para este producto.
+          </p>
+        )}
       </div>
 
       <div>
@@ -230,7 +280,7 @@ export default function ProductForm({
 
       <button
         type="submit"
-        disabled={saving}
+        disabled={saving || uploading}
         className="mt-4 bg-dark py-3 font-body text-sm uppercase tracking-widest text-cream transition hover:opacity-90 disabled:opacity-50"
       >
         {saving ? "Guardando…" : "Guardar producto"}
