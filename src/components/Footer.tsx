@@ -38,7 +38,6 @@ export default function Footer() {
           </h4>
           <ul className="space-y-2 font-body text-sm text-cream/70">
             <li>WhatsApp: 833 205 1214</li>
-            <li>hola@nubelia.mx</li>
             <li>Tampico, Tamaulipas</li>
           </ul>
         </div>
