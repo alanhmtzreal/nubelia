@@ -5,18 +5,11 @@ import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/format";
 
-const PAYMENT_METHODS = [
-  { id: "tarjeta", label: "Tarjeta de débito/crédito" },
-  { id: "paypal", label: "PayPal" },
-  { id: "mercadopago", label: "Mercado Pago" },
-  { id: "ecartpay", label: "Ecart Pay" },
-] as const;
+const ACCEPTED_METHODS = ["Visa", "Mastercard", "OXXO", "SPEI"];
 
 export default function CheckoutPage() {
   const { items, subtotal, clearCart } = useCart();
-  const [paymentMethod, setPaymentMethod] = useState<
-    (typeof PAYMENT_METHODS)[number]["id"]
-  >("tarjeta");
+  const paymentMethod = "mercadopago";
   const [confirmed, setConfirmed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -150,20 +143,23 @@ export default function CheckoutPage() {
             <h2 className="mb-4 font-display text-xl text-dark">
               Método de pago
             </h2>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {PAYMENT_METHODS.map((method) => (
-                <button
-                  type="button"
-                  key={method.id}
-                  onClick={() => setPaymentMethod(method.id)}
-                  className={`border px-4 py-4 text-center font-body text-xs uppercase tracking-wide transition ${
-                    paymentMethod === method.id
-                      ? "border-dark bg-dark text-cream"
-                      : "border-dark/20 text-dark/70 hover:border-dark"
-                  }`}
+            <div className="border border-dark bg-dark px-5 py-4 text-cream">
+              <span className="font-body text-sm uppercase tracking-wide">
+                Pagar con Mercado Pago
+              </span>
+              <p className="mt-1 font-body text-xs text-cream/70">
+                Acepta tarjeta de crédito/débito de cualquier banco, OXXO y
+                transferencia — no necesitas cuenta de Mercado Pago.
+              </p>
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {ACCEPTED_METHODS.map((method) => (
+                <span
+                  key={method}
+                  className="border border-dark/20 px-3 py-1 font-body text-xs uppercase tracking-wide text-dark/60"
                 >
-                  {method.label}
-                </button>
+                  {method}
+                </span>
               ))}
             </div>
             <p className="mt-3 font-body text-xs text-dark/40">
