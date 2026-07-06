@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
 
   const resend = new Resend(apiKey);
   const { error } = await resend.emails.send({
-    from: "Nubelia <onboarding@resend.dev>",
+    from: "Nubelia <notificaciones@nubelia.app>",
     to: notifyEmail,
     replyTo: order.customer.email,
     subject: `Nuevo pedido de ${order.customer.name}`,
