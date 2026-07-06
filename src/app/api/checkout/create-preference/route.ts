@@ -43,10 +43,6 @@ export async function POST(request: NextRequest) {
     const result = await preference.create({
       body: {
         items,
-        payer: {
-          name: order.customer.name,
-          email: order.customer.email,
-        },
         metadata: {
           customer: JSON.stringify(order.customer),
           items: JSON.stringify(order.items),
