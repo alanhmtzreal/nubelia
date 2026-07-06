@@ -1,12 +1,14 @@
 import { notFound } from "next/navigation";
-import { getPostBySlug, posts } from "@/data/posts";
+import { getPostBySlug } from "@/lib/posts-store";
 
-export function generateStaticParams() {
-  return posts.map((p) => ({ slug: p.slug }));
-}
+export const dynamic = "force-dynamic";
 
-export default function PostPage({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug(params.slug);
+export default async function PostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const post = await getPostBySlug(params.slug);
   if (!post) notFound();
 
   return (

@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { posts } from "@/data/posts";
+import { readPosts } from "@/lib/posts-store";
 
 export const metadata: Metadata = {
   title: "Blog | Nubelia",
 };
 
-export default function BlogPage() {
+export const dynamic = "force-dynamic";
+
+export default async function BlogPage() {
+  const posts = await readPosts();
+
   return (
     <div className="mx-auto max-w-4xl px-6 py-20">
       <p className="font-body text-xs uppercase tracking-[0.3em] text-dark/50">
