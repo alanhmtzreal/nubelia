@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/format";
+import { FLAT_SHIPPING_RATE } from "@/lib/shipping";
 
 const ACCEPTED_METHODS = ["Visa", "Mastercard", "OXXO", "SPEI"];
 
@@ -32,7 +33,14 @@ export default function CheckoutPage() {
     const res = await fetch("/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ customer, items, subtotal, paymentMethod }),
+      body: JSON.stringify({
+        customer,
+        items,
+        subtotal,
+        shipping: FLAT_SHIPPING_RATE,
+        total: subtotal + FLAT_SHIPPING_RATE,
+        paymentMethod,
+      }),
     });
 
     setSubmitting(false);
@@ -184,9 +192,19 @@ export default function CheckoutPage() {
               </li>
             ))}
           </ul>
-          <div className="flex justify-between border-t border-dark/10 pt-4 font-display text-lg text-dark">
+          <div className="flex flex-col gap-2 border-t border-dark/10 pt-4 font-body text-sm text-dark/70">
+            <div className="flex justify-between">
+              <span>Subtotal</span>
+              <span>{formatPrice(subtotal)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Envío (todo México)</span>
+              <span>{formatPrice(FLAT_SHIPPING_RATE)}</span>
+            </div>
+          </div>
+          <div className="mt-2 flex justify-between border-t border-dark/10 pt-4 font-display text-lg text-dark">
             <span>Total</span>
-            <span>{formatPrice(subtotal)}</span>
+            <span>{formatPrice(subtotal + FLAT_SHIPPING_RATE)}</span>
           </div>
           {error && (
             <p className="mt-4 font-body text-sm text-red-700">{error}</p>

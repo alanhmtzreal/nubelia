@@ -20,6 +20,8 @@ interface OrderPayload {
   };
   items: OrderItem[];
   subtotal: number;
+  shipping: number;
+  total: number;
   paymentMethod: string;
 }
 
@@ -67,7 +69,11 @@ export async function POST(request: NextRequest) {
     </p>
     <h3>Productos</h3>
     <ul>${itemsHtml}</ul>
-    <h3>Total: ${formatPrice(order.subtotal)}</h3>
+    <p>
+      Subtotal: ${formatPrice(order.subtotal)}<br/>
+      Envío: ${formatPrice(order.shipping)}
+    </p>
+    <h3>Total: ${formatPrice(order.total)}</h3>
     <p>Método de pago elegido: ${
       PAYMENT_LABELS[order.paymentMethod] ?? order.paymentMethod
     }</p>
